@@ -1,0 +1,2 @@
+1. create a git repo and clone it in local
+2. 
