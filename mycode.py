@@ -9,17 +9,20 @@ data = {'Name': ['Alice', 'Bob', 'Charlie'],
 
 df = pd.DataFrame(data)
 
-# # Adding new row to df for V2
-new_row_loc = {'Name': 'GF1', 'Age': 20, 'City': 'City1'}
-df.loc[len(df.index)] = new_row_loc
+# Adding new rows to df
+new_rows = [
+    {'Name': 'GF1', 'Age': 20, 'City': 'City1'},
+    {'Name': 'GF2', 'Age': 30, 'City': 'City2'},
+    {'Name': 'GF3', 'Age': 40, 'City': 'City3'}
+]
+df = pd.concat([df, pd.DataFrame(new_rows)], ignore_index=True)
 
-# # Adding new row to df for V3
-new_row_loc2 = {'Name': 'GF2', 'Age': 30, 'City': 'City2'}
-df.loc[len(df.index)] = new_row_loc2
-
-# # Adding new row to df for V4
-new_row_loc3 = {'Name' : 'GF3', 'Age': 40, 'City': 'City3'}
-df.loc[len(df.index)] = new_row_loc3
+# Update Alice's info
+alice_row = df[df['Name'] == 'Alice'].copy()
+alice_row['Name'] = 'GF1 (Ex-Alice)'
+new_alice_row = {'Name': 'Alice, GF: GF4', 'Age': 25, 'City': 'New York'}
+df = df[df['Name'] != 'Alice']
+df = pd.concat([df, alice_row, pd.DataFrame([new_alice_row])], ignore_index=True)
 
 # Ensure the "data" directory exists at the root level
 data_dir = 'data'
